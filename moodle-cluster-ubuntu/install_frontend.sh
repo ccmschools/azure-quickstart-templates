@@ -27,7 +27,7 @@ echo mysql-server-5.6 mysql-server/root_password_again password $dbpass | debcon
 apt-get -y install apache2 mysql-client mysql-server php5
 
 # install moodle requirements
-apt-get -y install graphviz aspell php5-pspell php5-curl php5-gd php5-intl php5-mysql php5-xmlrpc php5-ldap
+apt-get -y install graphviz aspell php5-pspell php5-curl php5-gd php5-intl php5-mysql php5-xmlrpc php5-ldap ghostscript
 
 # add port 8000 for admin access
 perl -0777 -p -i -e 's/Listen 80/Listen 80\nListen 8080/ig' /etc/apache2/ports.conf
@@ -61,6 +61,46 @@ if [ "$installOfficePlugins" = "True" ]; then
     cp -r o365-moodle-$moodleVersion/* html
     rm -rf o365-moodle-$moodleVersion
 fi
+
+# --------------------------------------------------------------------------------------------------------------
+# Install custom plugins for this version. Note: this code will need to be adjusted each time Moodle is upgraded. Preferred method is to use git.
+apt-get -y install git-all
+
+# Activity Modules
+cd /var/www/html/mod
+
+git clone -b $moodleVersion --single-branch https://github.com/markn86/moodle-mod_customcert.git customcert
+git clone -b $moodleVersion --single-branch https://github.com/remotelearner/moodle-mod_questionnaire.git questionnaire
+
+# Quiz/Access Rules
+cd /var/www/html/mod/quiz/accessrule
+
+
+# Blocks
+cd /var/www/html/blocks
+
+# Filters
+
+
+# Atto Plugins
+
+
+# Enrolment Methods
+
+
+# Availability Restrictions
+
+
+# Course Formats
+
+
+# Themes
+
+
+# Local Plugins
+
+
+# --------------------------------------------------------------------------------------------------------------
 
 # make the moodle directory writable for owner
 chown -R www-data html
