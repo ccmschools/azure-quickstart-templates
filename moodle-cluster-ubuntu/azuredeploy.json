@@ -72,8 +72,11 @@
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_A2",
+      "defaultValue": "Standard_DS1_v2",
       "allowedValues": [
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
         "Standard_A0",
         "Standard_A1",
         "Standard_A2",
@@ -101,8 +104,11 @@
     },
     "vmSizeDB": {
       "type": "string",
-      "defaultValue": "Standard_A2",
+       "defaultValue": "Standard_DS1_v2",
       "allowedValues": [
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
         "Standard_A0",
         "Standard_A1",
         "Standard_A2",
@@ -130,8 +136,9 @@
     },
     "moodleVersion": {
       "type": "string",
-      "defaultValue": "MOODLE_30_STABLE",
+      "defaultValue": "MOODLE_31_STABLE",
       "allowedValues": [
+        "MOODLE_31_STABLE",
         "MOODLE_30_STABLE",
         "MOODLE_29_STABLE",
         "MOODLE_28_STABLE",
@@ -153,7 +160,7 @@
     "newStorageAccountName": "[concat(uniquestring(resourceGroup().id), 'mdc')]",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
-    "ubuntuOSVersion": "14.04.2-LTS",
+    "ubuntuOSVersion": "14.04.5-LTS",
     "OSDiskName": "[concat(parameters('uniqueNamePrefix'),'Disk')]",
     "nicName": "[concat(parameters('uniqueNamePrefix'),'Nic')]",
     "addressPrefix": "10.0.0.0/16",
