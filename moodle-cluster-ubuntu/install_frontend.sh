@@ -36,10 +36,10 @@ perl -0777 -p -i -e 's/\*:80/*:80 *:8080/g' /etc/apache2/sites-enabled/000-defau
 apt-get install unzip
 
 # install Moodle
-cd /var/www/html
+cd /var/www
 curl -k --max-redirs 10 https://github.com/moodle/moodle/archive/$moodleVersion.zip -L -o moodle.zip
 unzip moodle.zip
-mv moodle-$moodleVersion moodle
+mv moodle-$moodleVersion html
 
 # install Office 365 plugins if asked for
 if [ "$installOfficePlugins" = "True" ]; then
@@ -58,13 +58,13 @@ if [ "$installOfficePlugins" = "True" ]; then
     
     #Copy office plugins to moodle and remove office unzipped folder
    
-    cp -r o365-moodle-$moodleVersion/* moodle
+    cp -r o365-moodle-$moodleVersion/* html
     rm -rf o365-moodle-$moodleVersion
 fi
 
 # make the moodle directory writable for owner
-chown -R www-data moodle
-chmod -R 770 moodle
+chown -R www-data html
+chmod -R 770 html
 
 # create moodledata directory
 mkdir /var/www/moodledata
@@ -73,7 +73,7 @@ chmod -R 770 /var/www/moodledata
 
 # create cron entry
 # It is scheduled for once per day. It can be changed as needed.
-echo '0 0 * * * php /var/www/html/moodle/admin/cli/cron.php > /dev/null 2>&1' > cronjob
+echo '0 0 * * * php /var/www/html/admin/cli/cron.php > /dev/null 2>&1' > cronjob
 crontab cronjob
 
 # restart Apache
@@ -87,10 +87,10 @@ mount -t cifs //$SharedStorageAccountName.file.core.windows.net/$SharedAzureFile
 chmod 770 /etc/fstab
 echo "//$SharedStorageAccountName.file.core.windows.net/$SharedAzureFileName /var/www/moodledata cifs uid=$(id -u www-data),vers=3.0,username=$SharedStorageAccountName,password=$SharedStorageAccountKey,dir_mode=0770,file_mode=0770" >> /etc/fstab
 
-cd /var/www/html/moodle
+cd /var/www/html
 
 #resolve domain name to ip address
-wwwrootval="http://$(resolveip -s $LoadbalancerFqdn):80/moodle"
+wwwrootval="http://$(resolveip -s $LoadbalancerFqdn):80"
 DbIpAddress=$(resolveip -s $DbFqdn)
 
 #command line moodle installation
