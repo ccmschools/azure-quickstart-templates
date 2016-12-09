@@ -1,7 +1,7 @@
 #!/bin/bash
 apt-get -y update
 apt-get -y install python-software-properties
-add-apt-repository -y ppa:ondrej/php5-oldstable
+add-apt-repository -y ppa:ondrej/php
 apt-get -y update
 
 # set up a silent install of MySQL
@@ -98,6 +98,12 @@ cd /var/www/html/blocks
 
 
 # Local Plugins
+
+
+# Alternative Login Form
+cd /var/www/html
+git clone https://github.com/ccmschools/learnerlink-loginform.git learnerlink-loginform
+
 
 
 # --------------------------------------------------------------------------------------------------------------
